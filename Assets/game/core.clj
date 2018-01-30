@@ -24,11 +24,6 @@
 					changed (assoc row j value)]
 			(assoc array i changed))))
 
-(update-array (get-array))
-(update-array (get-array) 0 0 :x)
-
-(update-state manager :array update-array)
-
 
 (def buttons (children (object-named "Canvas")))
 
