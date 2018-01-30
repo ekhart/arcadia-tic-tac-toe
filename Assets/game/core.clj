@@ -1,4 +1,5 @@
 (ns game.core
+	(require [clojure.string :as str])
 	(use arcadia.core)
 	(import [UnityEngine 
 		GameObject
@@ -32,17 +33,28 @@
 
 (def buttons (children (object-named "Canvas")))
 
-(defn button-click [go event key]
-	(let [current-player (state manager :current-player)]
+(defn button-click [button event key]
+	(let [current-player (state manager :current-player)
+				i (state button :i)
+				j (state button :j)]
 		(update-state manager :array (fn [array]
-			(update-array array 0 0 current-player)))))
+			(update-array array i j current-player)))
+		(let [button-text (.GetComponentInChildren button Text)]
+			(set! (. button-text text) (name current-player))))
+		(update-state manager :current-player #(if (= % :X) :O :X)))
 
-(mod 4 3)
-(int (/ 4 3.0))
+; (mod 4 3)
+; (int (/ 4 3.0))
+
+(name :x)
 
 (doseq [button buttons]
-	(println (.name button)))
-
+	(let [splitted-name (-> (.name button) (str/split #" "))
+				[i j] (drop 1 splitted-name)]
+		(state+ button :i (int i))
+		(state+ button :j (int j))))
+; 
+		
 ;; not do this
 ; (with-cmpt button [button-cmpt Button] 
 ; 	(.AddListener (.onClick button-cmpt) button-click))
