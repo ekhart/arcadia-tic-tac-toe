@@ -6,30 +6,42 @@
 		[UnityEngine.UI Button Text]))
 
 
-(def manager (GameObject. "Manager"))
+(if-let [exist (object-named "Manager")]
+	(def manager exist)
+	(def manager (GameObject. "Manager")))
 
 (defn get-array []
 	(vec (map vec (to-array-2d (repeat 3 (repeat 3 nil))))))
 
 (state+ manager :array (get-array))
+(state+ manager :current-player :x)
 
-(defn update-array [array]
-	(let [i 0
-				j 0
-				value 1
-				row (nth array i)
-				changed (assoc row j value)]
-		(assoc array i changed)))
+(defn update-array 
+	([array] (update-array array 0 0 1))
+	([array i j value]
+		(let [row (nth array i)
+					changed (assoc row j value)]
+			(assoc array i changed))))
+
+(update-array (get-array))
+(update-array (get-array) 0 0 :x)
 
 (update-state manager :array update-array)
 
 
-(def button (object-named "Button"))
+
+(def buttons (children (object-named "Canvas")))
 
 (defn button-click [go event key]
-	(log go)
-	(log event)
-	(log key))
+	(let [current-player (state manager :current-player)]
+		(update-state manager :array (fn [array]
+			(update-array array 0 0 current-player)))))
+
+(mod 4 3)
+(int (/ 4 3.0))
+
+(doseq [button buttons]
+	(println (.name button)))
 
 ;; not do this
 ; (with-cmpt button [button-cmpt Button] 
@@ -42,7 +54,12 @@
 ; (hook+ button :on-mouse-enter :button-mouse-down #'button-click)
 
 ;; this works
-(hook+ button :on-pointer-click :button-mouse-down #'button-click)
+(doseq [button buttons]
+  (hook+ button 
+  	:on-pointer-click 
+  	:button-mouse-down 
+  	#'button-click))
+
 
 
 
