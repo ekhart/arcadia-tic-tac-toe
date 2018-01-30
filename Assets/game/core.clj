@@ -30,7 +30,6 @@
 (update-state manager :array update-array)
 
 
-
 (def buttons (children (object-named "Canvas")))
 
 (defn button-click [button event key]
@@ -43,42 +42,18 @@
 			(set! (. button-text text) (name current-player))))
 		(update-state manager :current-player #(if (= % :X) :O :X)))
 
-; (mod 4 3)
-; (int (/ 4 3.0))
-
-(name :x)
-
 (doseq [button buttons]
 	(let [splitted-name (-> (.name button) (str/split #" "))
 				[i j] (drop 1 splitted-name)]
 		(state+ button :i (int i))
-		(state+ button :j (int j))))
-; 
-		
-;; not do this
-; (with-cmpt button [button-cmpt Button] 
-; 	(.AddListener (.onClick button-cmpt) button-click))
-; (.. button-cmpt onClick (AddListener button-click))
-; (.. (.GetComponentInChildren button Text) text)
-
-;; this dont work
-; (hook+ button :on-mouse-down :button-mouse-down #'button-click)
-; (hook+ button :on-mouse-enter :button-mouse-down #'button-click)
-
-;; this works
-(doseq [button buttons]
+		(state+ button :j (int j)))
   (hook+ button 
   	:on-pointer-click 
   	:button-mouse-down 
   	#'button-click))
 
 
-
-
 (defn camera-start [go key]
-	(log "Hello")
-
-	
-	)
+	(log "Hello"))
 
 (hook+ Camera/main :start :camera-start #'camera-start)
