@@ -15,7 +15,7 @@
 	(vec (map vec (to-array-2d (repeat 3 (repeat 3 nil))))))
 
 (state+ manager :array (get-array))
-(state+ manager :current-player :x)
+(state+ manager :current-player :X)
 
 (defn update-array 
 	([array] (update-array array 0 0 1))
@@ -25,7 +25,13 @@
 			(assoc array i changed))))
 
 
-(def buttons (children (object-named "Canvas")))
+(defn set-current-player []
+	(update-state manager :current-player #(if (= % :X) :O :X))
+	(with-cmpt (object-named "Current Player") [text-cmpt Text]
+		(set! (. text-cmpt text) 
+			(str "Current Player: " (name (state manager :current-player))))))
+
+(def buttons (children (object-named "Buttons")))
 
 (defn button-click [button event key]
 	(let [current-player (state manager :current-player)
@@ -35,7 +41,7 @@
 			(update-array array i j current-player)))
 		(let [button-text (.GetComponentInChildren button Text)]
 			(set! (. button-text text) (name current-player))))
-		(update-state manager :current-player #(if (= % :X) :O :X)))
+		(set-current-player))
 
 (doseq [button buttons]
 	(let [splitted-name (-> (.name button) (str/split #" "))
