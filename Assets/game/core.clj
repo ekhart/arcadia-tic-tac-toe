@@ -16,21 +16,17 @@
 ; https://stackoverflow.com/questions/8332611/how-to-use-clojure-doc-function
 
 (s/def ::game-object? #(= (type %) UnityEngine.GameObject))
-(doc ::game-object?)
 
 (if-let [exist (object-named "Manager")]
 	(def manager exist)
 	(def manager (GameObject. "Manager")))
 
-(s/valid? ::game-object? manager) ; false?
-(inst? manager) ; false too
-(= (type manager) UnityEngine.GameObject) ; true
+(s/valid? ::game-object? manager)
 
 
 (defn get-array []
 	(vec (map vec (to-array-2d (repeat 3 (repeat 3 nil))))))
 
-; (s/def ::manager-state (s/keys :req [::array ::current-player]))
 ; use unqualified keys
 (s/def ::manager-state (s/keys :req-un [::array ::current-player]))
 
@@ -49,7 +45,7 @@
 
 (defn set-current-player []
 	(update-state manager :current-player #(if (= % :X) :O :X))
-	(with-cmpt (object-nam	ed "Current Player") [text-cmpt Text]
+	(with-cmpt (object-named "Current Player") [text-cmpt Text]
 		(set! (. text-cmpt text) 
 			(str "Current Player: " (name (state manager :current-player))))))
 
