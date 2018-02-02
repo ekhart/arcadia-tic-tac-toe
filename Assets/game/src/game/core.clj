@@ -21,9 +21,6 @@
 	(def manager exist)
 	(def manager (GameObject. "Manager")))
 
-(s/valid? ::game-object? manager)
-
-
 (defn get-array []
 	(vec (map vec (to-array-2d (repeat 3 (repeat 3 nil))))))
 
@@ -32,8 +29,6 @@
 
 (state+ manager :array (get-array))
 (state+ manager :current-player :X)
-
-(s/valid? ::manager-state (state manager))
 
 (defn update-array 
 	([array] (update-array array 0 0 1))
