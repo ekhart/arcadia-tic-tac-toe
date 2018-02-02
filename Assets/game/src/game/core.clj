@@ -51,6 +51,8 @@
 
 (def buttons (children (object-named "Buttons")))
 
+;; check if player win
+
 (defn button-click [button event key]
 	(let [current-player (state manager :current-player)
 				i (state button :i)
