@@ -44,7 +44,11 @@
 		(set! (. text-cmpt text) 
 			(str "Current Player: " (name (state manager :current-player))))))
 
+(s/def ::game-objects? (s/coll-of ::game-object?))
+
 (def buttons (children (object-named "Buttons")))
+
+; (s/valid? ::game-objects? buttons) ; works
 
 ;; check if player win
 

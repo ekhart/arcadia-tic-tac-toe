@@ -14,7 +14,8 @@
 (deftest spec-test
 	(testing "specs"
 		(is (true? (s/valid? :game.core/game-object? manager)))
-		(is (true? (s/valid? :game.core/manager-state (state manager))))))
+		(is (true? (s/valid? :game.core/manager-state (state manager))))
+		(is (true? (s/valid? :game.core/game-objects? buttons)))))
 
 ; run this to test
 (run-tests)
