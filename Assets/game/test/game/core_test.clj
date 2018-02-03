@@ -14,6 +14,9 @@
 (defn is-valid? [spec value]
 	(is (true? (s/valid? spec value))))
 
+(defn is-not-valid? [spec value]
+	(is (false? (s/valid? spec value))))
+
 (deftest spec-test
 	(testing "specs"
 		(is-valid? :game.core/game-object manager)
@@ -22,7 +25,14 @@
 	(testing "array-specs"
 		(is-valid? :game.core/array-state nil)
 		(is-valid? :game.core/array-state :X)
-		(is-valid? :game.core/array-state :O)))
+		(is-valid? :game.core/array-state :O))
+		(is-valid? :game.core/array-row [nil nil nil])
+		(is-valid? :game.core/array-row [nil :X nil])
+		(is-valid? :game.core/array-row [nil nil :O])
+		(is-valid? :game.core/array-row [nil :X :O])
+		(is-not-valid? :game.core/array-row [nil nil])
+		(is-not-valid? :game.core/array-row [nil])
+		(is-not-valid? :game.core/array-row []))
 
 (defn is-equal [a b]
 	(is (= a b)))

@@ -24,6 +24,9 @@
 (s/def ::array-state (s/or 
 	:none nil? 
 	:player #{:X :O}))
+(s/def ::array-row (s/coll-of ::array-state
+	:kind vector?
+	:count 3))
 
 (defn get-array 
 	([] (vec (map vec (to-array-2d (repeat 3 (repeat 3 nil))))))
