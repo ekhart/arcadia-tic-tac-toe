@@ -1,12 +1,12 @@
 (ns game.core
-	(require [clojure.string :as str]
-		[clojure.spec :as s])
-	(use arcadia.core
-		clojure.repl)
+	(require 	[clojure.string :as str]
+						[clojure.spec :as s])
+	(use 	clojure.repl
+				arcadia.core)
 	(import [UnityEngine 
-		GameObject
-		Camera]
-		[UnityEngine.UI Button Text]))
+					GameObject
+					Camera]
+					[UnityEngine.UI Button Text]))
 
 
 ; clojure.repl for doc fun, but dont work ;/
@@ -17,8 +17,9 @@
 	(def manager (GameObject. "Manager")))
 
 (defn get-array 
-	([] (vec (map vec (to-array-2d (repeat 3 (repeat 3 nil))))))
+	([] [])
 	([a b c d e f g h i] [[a b c] [d e f] [g h i]]))
+	; ([] (vec (map vec (to-array-2d (repeat 3 (repeat 3 nil))))))
 
 (state+ manager :array (get-array))
 (state+ manager :current-player :X)

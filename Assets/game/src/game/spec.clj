@@ -1,5 +1,6 @@
 (ns game.spec
-  (require [clojure.spec :as s])
+  (require  [clojure.spec :as s]
+  					[game.core :refer :all])
   (import [UnityEngine GameObject]))
 
 
@@ -23,3 +24,6 @@
 (s/def ::manager-state (s/keys :req-un [::array ::current-player]))
 
 (s/def ::game-objects (s/coll-of ::game-object))
+
+(s/fdef get-array 
+	:ret ::array)
