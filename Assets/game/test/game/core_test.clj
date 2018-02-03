@@ -13,9 +13,11 @@
 
 (deftest spec-test
 	(testing "specs"
-		(is (true? (s/valid? :game.core/game-object? manager)))
+		(is (true? (s/valid? :game.core/game-object manager)))
 		(is (true? (s/valid? :game.core/manager-state (state manager))))
-		(is (true? (s/valid? :game.core/game-objects? buttons)))))
+		(is (true? (s/valid? :game.core/game-objects buttons))))
+	(testing "array-specs"
+		(is (true? (s/valid? :game.core/array-state nil)))))
 
 (defn is-equal [a b]
 	(is (= a b)))
@@ -33,6 +35,10 @@
 			[[nil nil nil]
 			 [:x nil nil]
 			 [nil nil nil]]))
+
+(deftest win-condition-test
+	(testing "win-condition"
+		(is (true? (game-win (get-array))))))
 
 ; run this to test
 (run-tests)

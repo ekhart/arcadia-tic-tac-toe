@@ -15,11 +15,15 @@
 ; clojure.repl for doc fun, but dont work ;/
 ; https://stackoverflow.com/questions/8332611/how-to-use-clojure-doc-function
 
-(s/def ::game-object? #(= (type %) UnityEngine.GameObject))
+(s/def ::game-object #(= (type %) UnityEngine.GameObject))
 
 (if-let [exist (object-named "Manager")]
 	(def manager exist)
 	(def manager (GameObject. "Manager")))
+
+(s/def ::array-state (s/or 
+	:none nil? 
+	:player #{:X :O}))
 
 (defn get-array 
 	([] (vec (map vec (to-array-2d (repeat 3 (repeat 3 nil))))))
@@ -30,6 +34,9 @@
 
 (state+ manager :array (get-array))
 (state+ manager :current-player :X)
+
+(defn game-win [array]
+	true)
 
 (defn update-array 
 	([array] (update-array array 0 0 1))
@@ -45,7 +52,7 @@
 		(set! (. text-cmpt text) 
 			(str "Current Player: " (name (state manager :current-player))))))
 
-(s/def ::game-objects? (s/coll-of ::game-object?))
+(s/def ::game-objects (s/coll-of ::game-object))
 
 (def buttons (children (object-named "Buttons")))
 
