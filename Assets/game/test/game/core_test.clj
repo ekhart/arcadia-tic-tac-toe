@@ -11,13 +11,18 @@
 ; (s/valid? ::game-object? manager) =>
 ; (s/valid? :game.core/game-object? manager) ; works
 
+(defn is-valid? [spec value]
+	(is (true? (s/valid? spec value))))
+
 (deftest spec-test
 	(testing "specs"
-		(is (true? (s/valid? :game.core/game-object manager)))
-		(is (true? (s/valid? :game.core/manager-state (state manager))))
-		(is (true? (s/valid? :game.core/game-objects buttons))))
+		(is-valid? :game.core/game-object manager)
+		(is-valid? :game.core/manager-state (state manager))
+		(is-valid? :game.core/game-objects buttons))
 	(testing "array-specs"
-		(is (true? (s/valid? :game.core/array-state nil)))))
+		(is-valid? :game.core/array-state nil)
+		(is-valid? :game.core/array-state :X)
+		(is-valid? :game.core/array-state :O)))
 
 (defn is-equal [a b]
 	(is (= a b)))
