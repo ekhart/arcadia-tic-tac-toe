@@ -8,9 +8,6 @@
 		Camera]
 		[UnityEngine.UI Button Text]))
 
-; https://clojure.org/guides/spec
-; [clojure.spec.alpha :as s]) ; dont work
-; [clojure.spec :as s]) ; this work
 
 ; clojure.repl for doc fun, but dont work ;/
 ; https://stackoverflow.com/questions/8332611/how-to-use-clojure-doc-function

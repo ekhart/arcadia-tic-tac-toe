@@ -1,22 +1,14 @@
 (ns game.core-test
-  (:require [clojure.test :refer :all]
-            [game.core :refer :all]
-            [game.spec :refer :all]
-            [clojure.spec :as s])
+  (require [clojure.test :refer :all]
+           [clojure.spec :as s]
+           [game.core :refer :all]
+           [game.spec :refer :all]
+           [game.test-util :refer :all])
   (use arcadia.core))
 
 (deftest a-test
   (testing "FIXME, I fail."
     (is (= 1 1))))
-
-; (s/valid? ::game-object? manager) =>
-; (s/valid? :game.core/game-object? manager) ; works
-
-(defn is-valid? [spec value]
-	(is (true? (s/valid? spec value))))
-
-(defn is-not-valid? [spec value]
-	(is (false? (s/valid? spec value))))
 
 (deftest spec-test1
 	(testing "specs"
@@ -43,9 +35,6 @@
 			nil nil nil
 			:X nil nil
 			nil nil nil)))
-
-(defn is-equal [a b]
-	(is (= a b)))
 
 (deftest array-test
 	(testing "get-array")
