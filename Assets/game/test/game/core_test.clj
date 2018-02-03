@@ -17,5 +17,22 @@
 		(is (true? (s/valid? :game.core/manager-state (state manager))))
 		(is (true? (s/valid? :game.core/game-objects? buttons)))))
 
+(defn is-equal [a b]
+	(is (= a b)))
+
+(deftest array-test
+	(testing "get-array")
+		(is-equal (get-array)
+			[[nil nil nil]
+			 [nil nil nil]
+			 [nil nil nil]])
+		(is-equal (get-array 
+			nil nil nil
+			:x nil nil
+			nil nil nil)
+			[[nil nil nil]
+			 [:x nil nil]
+			 [nil nil nil]]))
+
 ; run this to test
 (run-tests)

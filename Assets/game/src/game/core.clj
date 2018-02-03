@@ -21,8 +21,9 @@
 	(def manager exist)
 	(def manager (GameObject. "Manager")))
 
-(defn get-array []
-	(vec (map vec (to-array-2d (repeat 3 (repeat 3 nil))))))
+(defn get-array 
+	([] (vec (map vec (to-array-2d (repeat 3 (repeat 3 nil))))))
+	([a b c d e f g h i] [[a b c] [d e f] [g h i]]))
 
 ; use unqualified keys
 (s/def ::manager-state (s/keys :req-un [::array ::current-player]))
