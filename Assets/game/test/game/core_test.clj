@@ -32,7 +32,13 @@
 		(is-valid? :game.core/array-row [nil :X :O])
 		(is-not-valid? :game.core/array-row [nil nil])
 		(is-not-valid? :game.core/array-row [nil])
-		(is-not-valid? :game.core/array-row []))
+		(is-not-valid? :game.core/array-row [])
+
+		(is-valid? :game.core/array (get-array))
+		(is-valid? :game.core/array (get-array 
+			nil nil nil
+			:X nil nil
+			nil nil nil)))
 
 (defn is-equal [a b]
 	(is (= a b)))
@@ -45,10 +51,10 @@
 			 [nil nil nil]])
 		(is-equal (get-array 
 			nil nil nil
-			:x nil nil
+			:X nil nil
 			nil nil nil)
 			[[nil nil nil]
-			 [:x nil nil]
+			 [:X nil nil]
 			 [nil nil nil]]))
 
 (deftest win-condition-test

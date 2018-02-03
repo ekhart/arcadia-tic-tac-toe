@@ -24,7 +24,12 @@
 (s/def ::array-state (s/or 
 	:none nil? 
 	:player #{:X :O}))
+
 (s/def ::array-row (s/coll-of ::array-state
+	:kind vector?
+	:count 3))
+
+(s/def ::array (s/coll-of ::array-row
 	:kind vector?
 	:count 3))
 
