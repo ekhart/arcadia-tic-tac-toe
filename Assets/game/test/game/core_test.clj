@@ -1,6 +1,7 @@
 (ns game.core-test
   (:require [clojure.test :refer :all]
             [game.core :refer :all]
+            [game.spec :refer :all]
             [clojure.spec :as s])
   (use arcadia.core))
 
@@ -17,12 +18,15 @@
 (defn is-not-valid? [spec value]
 	(is (false? (s/valid? spec value))))
 
-(deftest spec-test
+(deftest spec-test1
 	(testing "specs"
 		(is-valid? :game.core/game-object manager)
 		(is-valid? :game.core/manager-state (state manager))
 		(is-valid? :game.core/game-objects buttons))
 	(testing "array-specs"
+		(is-valid? :game.core/player :X)
+		(is-valid? :game.core/player :O)
+		(is-not-valid? :game.core/player nil)
 		(is-valid? :game.core/array-state nil)
 		(is-valid? :game.core/array-state :X)
 		(is-valid? :game.core/array-state :O))
