@@ -25,5 +25,5 @@
 
 (s/def ::game-objects (s/coll-of ::game-object))
 
-(s/fdef get-array 
+(s/fdef game.core/get-array 
 	:ret ::array)
